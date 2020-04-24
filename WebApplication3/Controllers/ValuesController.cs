@@ -1,7 +1,8 @@
-﻿using Microsoft.SqlServer.Dts.Runtime;
+﻿
 using Microsoft.SqlServer.Management.IntegrationServices;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -19,18 +20,31 @@ namespace WebApplication3.Controllers
         }
 
         // GET api/values/5
-        public string Get(string serverName)
+        public string Get(int id)
         {
-            string targetServerName = serverName;
+            
             string folderName = "ConArchETL";
             string environmentName = "";
+
+            string cloudDatabaseHost = ".";
+            //string cloudDatabaseUser = ".";
+            //string cloudDatabasePassword = ".";
+
+            string settings = string.Copy(ConfigurationManager.ConnectionStrings["ManagementContext"].ConnectionString);
+
 
             string ADO_Evasys_ConnectionString = ".";
 
             // Create a connection to the server
-            string sqlConnectionString = "Data Source=" + targetServerName +
+            List<string> connectionConfigs = settings.Split(';').Where(c => !string.IsNullOrEmpty(c)).ToList();
+            Dictionary<string, string> connectionValues = connectionConfigs.Select(item => item.Split('=')).ToDictionary(s => s[0], s => s[1]);
+
+            connectionValues.TryGetValue("Data Source", out cloudDatabaseHost);
+
+            string sqlConnectionString = "Data Source=" + cloudDatabaseHost +
                 ";Initial Catalog=master;Integrated Security=SSPI;";
             SqlConnection sqlConnection = new SqlConnection(sqlConnectionString);
+
 
             // Create the Integration Services object
             IntegrationServices integrationServices = new IntegrationServices(sqlConnection);
@@ -63,7 +77,7 @@ namespace WebApplication3.Controllers
             }
 
             environmentInfo.Alter();
-            return "true";
+            return cloudDatabaseHost;
         }
 
         // POST api/values

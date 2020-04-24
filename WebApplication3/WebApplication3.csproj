@@ -64,7 +64,6 @@
     <Reference Include="Microsoft.SqlServer.Dmf.Common, Version=16.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.160.2004021.0\lib\net462\Microsoft.SqlServer.Dmf.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SQLServer.ManagedDTS, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Management.Assessment, Version=16.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.SqlManagementObjects.160.2004021.0\lib\net462\Microsoft.SqlServer.Management.Assessment.dll</HintPath>
     </Reference>
